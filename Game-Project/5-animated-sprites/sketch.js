@@ -74,7 +74,7 @@ class Avatar {
       }
 
     if (this.x < 350) {
-      this.speed=this.speed*-1
+      this.speed=this.speed*-.5
     }
 
 
