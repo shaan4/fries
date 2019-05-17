@@ -32,13 +32,13 @@ function draw() {
 
 animation(hand, x, y);
 animation(fries, 400, 300);
-x=x+10;
+x=x+5;
 
 if(x > 800)
-  x = x-5;
+  x = x-400;
 
   // hand.setSpeed(3, direction);
-  //
+
   // hand.maxSpeed = 5;
 
 }
