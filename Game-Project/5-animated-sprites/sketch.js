@@ -57,6 +57,7 @@ class Avatar {
 		    this.x = x;
     		this.y = y;
         this.speed = speed;
+
 	}
 
 	drawMe(){  // draw the running person
@@ -73,8 +74,10 @@ class Avatar {
         this.speed = -(this.speed+5);
       }
 
-    if (this.x < 350) {
-      this.speed=this.speed*-.5
+    if (this.x < 400) {
+      let speedfactor = .6
+      this.speed=this.speed *-random(.6,.9);
+      //speedfactor=speedfactor +random(.1,.3);
     }
 
 
