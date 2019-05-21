@@ -1,5 +1,6 @@
 var fries;
 var hand;
+var fry;
 var direction = 90;
 //
 let x=600
@@ -19,14 +20,14 @@ function preload() {
 //   //pass the first and the last file name and it will try to find the ones in between
   fries = loadAnimation('assets/fries001.png', 'assets/fries005.png');
   hand = loadAnimation('assets/hand1.png', 'assets/hand5.png');
-
+  fry = loadAnimation ('assets/fry1.png', 'assets/fry2.png');
 
 }
 
 function setup() {
   createCanvas(800, 600);
   //make one avatar called me
-  me = new Avatar(600, 200, 3);
+  me = new Avatar(600, 200, 3, random(.4,.9));
 }
 
 function draw() {
@@ -53,14 +54,16 @@ animation(fries, 400, 300);
 //avatar class
 class Avatar {
 
-	constructor(x,y, speed){ //every avatar needs an x value, a y value, and a speed
+	constructor(x,y, speed, speedfactor){ //every avatar needs an x value, a y value, and a speed
 		    this.x = x;
     		this.y = y;
         this.speed = speed;
+        this.speedfactor = speedfactor;
 
 	}
 
 	drawMe(){  // draw the running person
+    animation(fry, this.x-45, this.y+100);
     animation(hand, this.x, this.y);
 
 	}
@@ -71,13 +74,16 @@ class Avatar {
 
 
     if (this.x > 800) { // if you hold the down arrow, move down by speed
-        this.speed = -(this.speed+5);
+     this.speed = -(this.speed+5);
+
+
+
       }
 
     if (this.x < 400) {
-      let speedfactor = .6
-      this.speed=this.speed *-random(.6,.9);
-      //speedfactor=speedfactor +random(.1,.3);
+     this.speed=this.speed *-.8;
+
+
     }
 
 
