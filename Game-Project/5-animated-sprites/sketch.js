@@ -1,6 +1,8 @@
+
 var fries;
 var hand;
 var fry;
+var slap;
 var direction = 90;
 //
 let x=600
@@ -22,6 +24,7 @@ function preload() {
   fries = loadAnimation('assets/fries001.png', 'assets/fries005.png');
   hand = loadAnimation('assets/hand1.png', 'assets/hand5.png');
   fry = loadAnimation ('assets/fry1.png', 'assets/fry2.png');
+  slap = loadAnimation ('assets/xmarker1.png', 'assets/xmarker2.png');
 
 }
 
@@ -33,44 +36,53 @@ function setup() {
 
 function draw() {
   background(200, 255, 255);
+  textSize(32);
+  fill(237, 34, 23);
+  stroke(20);
+  text('Stop Mickey from stealing your Mickey Ds', width/2-300, 30);
+  textSize(16);
+  fill(214, 11, 237);
+  text('Click the hands to slap them away', width/2-120, height-10);
   me.drawMe();
   me.moveMe();
-  me.dropFry();
+
+
 
   if(me.hasFry == 4){
-    // let hand = new Avatar(600, 200, random(10,20),1);
-    //  hands.push(hand);
+    let hand = new Avatar(600, 200, random(10,20),1);
+     hands.push(hand);
      me.hasFry = me.hasFry+1;
-
   }
 
   for (let i=0; i<hands.length;i++){
+    print(hands);
     hands[i].drawMe();
     hands[i].moveMe();
-    hands[i].dropFry();
+    if(hands[i].hasFry==4){
+      let hand = new Avatar(600, 200, random(10,20),1);
+       hands.push(hand);
+       hands[i].hasFry=hands[i].hasFry+1;
+      }
   }
 
-  //specify the animation instance and its x,y position
-  //animation() will update the animation frame as well
+ for (let i=0; i<hands.length;i++){
 
+}
 
-animation(fries, width/2, height/2);
-// x=x+10;
-//
-// if(x > 800)
-//   x = x-5;
-
-  // hand.setSpeed(3, direction);
-  //
-  // hand.maxSpeed = 5;
+  animation(fries, width/2, height/2);
 
 }
 
 function mousePressed(){
   if(mouseX>=me.x-100 && mouseX <= me.x+100 && mouseY >=me.y-100 && mouseY <= me.y+100  ){
    me.hasFry = me.hasFry+1;
-
   }
+for(let i=0;i<hands.length;i++){
+  if(mouseX>=hands[i].x-100 && mouseX <= hands[i].x+100 && mouseY >=hands[i].y-100 && mouseY <= hands[i].y+100  ){
+   hands[i].hasFry = hands[i].hasFry+1;
+  }
+}
+
 
 }
 
@@ -82,11 +94,10 @@ class Avatar {
     		this.y = y;
         this.speed = speed;
         this.hasFry = hasFry;
-      //  this.speedfactor = speedfactor;
 
 	}
 
-	drawMe(){  // draw the running person
+	drawMe(){
     print(this.hasFry);
     if(this.hasFry ==1){
         animation(hand, this.x, this.y);
@@ -102,50 +113,38 @@ class Avatar {
      noStroke();
      rect(this.x-100,this.y-100, 200,350);
      animation(fry, this.x-45, this.y+100);
-     this.y = this.y +5;
+     animation(slap, this.x-45, this.y-100);
+     if(this.y<=500){
+       this.y = this.y +5;
+     }
+
    }
-
-   // if (this.hasFry == 4){
-   //   this.y = this.y;
-   // }
-
 
 	}
 
 	moveMe(){
-      //if you hold the up arrow, move up by speed
-       this.x += this.speed;
-
-
+  if(this.hasFry<=2){
+    this.x += this.speed;
     if (this.x > width) { // if you hold the down arrow, move down by speed
      this.speed = -this.speed;
-
       }
 
     if (this.x < width/2) {
      this.speed= - this.speed ;
-
     }
+  }
+    //move along the x-axis
 
     if (this.x < width/2 && this.hasFry ==1) {
       this.hasFry = 2;
     }
 
-    if(this.y>height-100){
+    if(this.y>=499 && this.hasFry ==3){
       this.hasFry = 4;
 
     }
 
 	}
-
-  dropFry(){
-    if (this.hasFry == 3){
-
-
-
-    }
-
-  }
 
 }
 
