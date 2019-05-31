@@ -5,6 +5,8 @@ var fry;
 var slap;
 var direction = 90;
 //
+let number = "lives:"
+let food = 20;
 let x=600
 let y=225
 
@@ -32,6 +34,7 @@ function setup() {
   createCanvas(windowWidth, windowHeight);
   //make one avatar called me
   me = new Avatar(600, 200, random(10,20),1);
+  hands.push(me);
 }
 
 function draw() {
@@ -43,19 +46,24 @@ function draw() {
   textSize(16);
   fill(214, 11, 237);
   text('Click the hands to slap them away', width/2-120, height-10);
-  me.drawMe();
-  me.moveMe();
+  textSize(24)
+  fill(255, 229, 104);
+  text(number, 10, 30);
+  text(food, 10, 60);
+
+  // me.drawMe();
+  // me.moveMe();
 
 
 
-  if(me.hasFry == 4){
-    let hand = new Avatar(600, 200, random(10,20),1);
-     hands.push(hand);
-     me.hasFry = me.hasFry+1;
-  }
+  // if(me.hasFry == 4){
+  //   let hand = new Avatar(600, 200, random(10,20),1);
+  //    hands.push(hand);
+  //    me.hasFry = me.hasFry+1;
+  // }
 
   for (let i=0; i<hands.length;i++){
-    print(hands);
+    //print(hands);
     hands[i].drawMe();
     hands[i].moveMe();
     if(hands[i].hasFry==4){
@@ -63,8 +71,11 @@ function draw() {
        hands.push(hand);
        hands[i].hasFry=hands[i].hasFry+1;
       }
+    if(hands[i].x>width && hands [i].hasFry==2){
+      food = food-1;
+      hands[i].hasFry = hands[i].hasFry-1;
   }
-
+}
  for (let i=0; i<hands.length;i++){
 
 }
