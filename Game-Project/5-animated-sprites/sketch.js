@@ -46,10 +46,7 @@ function draw() {
   me.drawMe();
   me.moveMe();
 
-<<<<<<< HEAD
 
-=======
->>>>>>> 0517dc40b71e47a1b16cee00bda93603d2b45a27
 
   if(me.hasFry == 4){
     let hand = new Avatar(600, 200, random(10,20),1);
@@ -116,10 +113,7 @@ class Avatar {
      noStroke();
      rect(this.x-100,this.y-100, 200,350);
      animation(fry, this.x-45, this.y+100);
-<<<<<<< HEAD
      animation(slap, this.x-45, this.y-100);
-=======
->>>>>>> 0517dc40b71e47a1b16cee00bda93603d2b45a27
      if(this.y<=500){
        this.y = this.y +5;
      }
