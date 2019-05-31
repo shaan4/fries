@@ -4,6 +4,7 @@ var hand;
 var fry;
 var slap;
 var mickey;
+var xtimer =0;
 var direction = 90;
 //
 let number = "lives:"
@@ -35,7 +36,7 @@ function preload() {
 function setup() {
   createCanvas(windowWidth, windowHeight);
   //make one avatar called me
-  me = new Avatar(600, 200, random(10,20),1);
+  me = new Avatar(600, 200, random(25,35),1);
   hands.push(me);
 }
 
@@ -53,23 +54,14 @@ function draw() {
   text(number, 10, 30);
   text(food, 10, 60);
 
-  // me.drawMe();
-  // me.moveMe();
-
-
-
-  // if(me.hasFry == 4){
-  //   let hand = new Avatar(600, 200, random(10,20),1);
-  //    hands.push(hand);
-  //    me.hasFry = me.hasFry+1;
-  // }
+print(xtimer)
 
   for (let i=0; i<hands.length;i++){
     //print(hands);
     hands[i].drawMe();
     hands[i].moveMe();
     if(hands[i].hasFry==4){
-      let hand = new Avatar(600, 200, random(10,20),1);
+      let hand = new Avatar(600, 200, random(35,45),1);
        hands.push(hand);
        hands[i].hasFry=hands[i].hasFry+1;
       }
@@ -83,13 +75,16 @@ function draw() {
 }
 
   animation(fries, width/2, height/2);
-animation (mickey, width/2, height/2);
+if(food<1){
+  animation (mickey, width/2, height/2);
+}
+
 }
 
 function mousePressed(){
-  if(mouseX>=me.x-100 && mouseX <= me.x+100 && mouseY >=me.y-100 && mouseY <= me.y+100  ){
-   me.hasFry = me.hasFry+1;
-  }
+  // if(mouseX>=me.x-100 && mouseX <= me.x+100 && mouseY >=me.y-100 && mouseY <= me.y+100  ){
+  //  me.hasFry = me.hasFry+1;
+  // }
 for(let i=0;i<hands.length;i++){
   if(mouseX>=hands[i].x-100 && mouseX <= hands[i].x+100 && mouseY >=hands[i].y-100 && mouseY <= hands[i].y+100  ){
    hands[i].hasFry = hands[i].hasFry+1;
@@ -111,7 +106,7 @@ class Avatar {
 	}
 
 	drawMe(){
-    print(this.hasFry);
+    //print(this.hasFry);
     if(this.hasFry ==1){
         animation(hand, this.x, this.y);
     }
@@ -119,14 +114,18 @@ class Avatar {
     if(this.hasFry == 2){
         animation(hand, this.x, this.y);
         animation(fry, this.x-45, this.y+100);
+        xtimer = frameCount;
     }
    if (this.hasFry ==3){
-     print("drop the fry");
+     //print("drop the fry");
      fill(200, 255, 255)
      noStroke();
      rect(this.x-100,this.y-100, 200,350);
      animation(fry, this.x-45, this.y+100);
-     animation(slap, this.x-45, this.y-100);
+     if (frameCount<xtimer+5){
+       animation(slap, this.x-45, this.y-100);
+     }
+
      if(this.y<=500){
        this.y = this.y +5;
      }
@@ -139,7 +138,7 @@ class Avatar {
   if(this.hasFry<=2){
     this.x += this.speed;
     if (this.x > width) { // if you hold the down arrow, move down by speed
-     this.speed = -this.speed;
+     this.speed = - this.speed;
       }
 
     if (this.x < width/2) {
