@@ -3,6 +3,7 @@ var fries;
 var hand;
 var fry;
 var slap;
+var mickey;
 var direction = 90;
 //
 let number = "lives:"
@@ -27,6 +28,7 @@ function preload() {
   hand = loadAnimation('assets/hand1.png', 'assets/hand5.png');
   fry = loadAnimation ('assets/fry1.png', 'assets/fry2.png');
   slap = loadAnimation ('assets/xmarker1.png', 'assets/xmarker2.png');
+  mickey = loadAnimation ('assets/Drawing1.png', 'assets/Drawing2.png')
 
 }
 
@@ -81,7 +83,7 @@ function draw() {
 }
 
   animation(fries, width/2, height/2);
-
+animation (mickey, width/2, height/2);
 }
 
 function mousePressed(){
