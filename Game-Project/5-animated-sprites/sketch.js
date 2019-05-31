@@ -11,6 +11,7 @@ let y=225
 
 //create a variable to hold your avatar
 let me;
+let hands = [];
 
 
 function preload() {
@@ -25,21 +26,35 @@ function preload() {
 }
 
 function setup() {
-  createCanvas(800, 600);
+  createCanvas(windowWidth, windowHeight);
   //make one avatar called me
-  me = new Avatar(600, 200, 3, random(.4,.9));
+  me = new Avatar(600, 200, random(10,20),1);
 }
 
 function draw() {
   background(200, 255, 255);
   me.drawMe();
   me.moveMe();
+  me.dropFry();
+
+  if(me.hasFry == 4){
+    // let hand = new Avatar(600, 200, random(10,20),1);
+    //  hands.push(hand);
+     me.hasFry = me.hasFry+1;
+
+  }
+
+  for (let i=0; i<hands.length;i++){
+    hands[i].drawMe();
+    hands[i].moveMe();
+    hands[i].dropFry();
+  }
 
   //specify the animation instance and its x,y position
   //animation() will update the animation frame as well
 
 
-animation(fries, 400, 300);
+animation(fries, width/2, height/2);
 // x=x+10;
 //
 // if(x > 800)
@@ -51,45 +66,84 @@ animation(fries, 400, 300);
 
 }
 
+function mousePressed(){
+  if(mouseX>=me.x-100 && mouseX <= me.x+100 && mouseY >=me.y-100 && mouseY <= me.y+100  ){
+   me.hasFry = me.hasFry+1;
+
+  }
+
+}
+
 //avatar class
 class Avatar {
 
-	constructor(x,y, speed, speedfactor){ //every avatar needs an x value, a y value, and a speed
+	constructor(x,y, speed, hasFry){ //every avatar needs an x value, a y value, and a speed
 		    this.x = x;
     		this.y = y;
         this.speed = speed;
-        this.speedfactor = speedfactor;
+        this.hasFry = hasFry;
+      //  this.speedfactor = speedfactor;
 
 	}
 
 	drawMe(){  // draw the running person
-    animation(fry, this.x-45, this.y+100);
-    animation(hand, this.x, this.y);
+    print(this.hasFry);
+    if(this.hasFry ==1){
+        animation(hand, this.x, this.y);
+    }
+
+    if(this.hasFry == 2){
+        animation(hand, this.x, this.y);
+        animation(fry, this.x-45, this.y+100);
+    }
+   if (this.hasFry ==3){
+     print("drop the fry");
+     fill(200, 255, 255)
+     noStroke();
+     rect(this.x-100,this.y-100, 200,350);
+     animation(fry, this.x-45, this.y+100);
+     this.y = this.y +5;
+   }
+
+   // if (this.hasFry == 4){
+   //   this.y = this.y;
+   // }
+
 
 	}
 
 	moveMe(){
       //if you hold the up arrow, move up by speed
-       this.x += this.speed+2;
+       this.x += this.speed;
 
 
-    if (this.x > 800) { // if you hold the down arrow, move down by speed
-     this.speed = -(this.speed+5);
-
-
+    if (this.x > width) { // if you hold the down arrow, move down by speed
+     this.speed = -this.speed;
 
       }
 
-    if (this.x < 400) {
-     this.speed=this.speed *-.8;
-
+    if (this.x < width/2) {
+     this.speed= - this.speed ;
 
     }
 
+    if (this.x < width/2 && this.hasFry ==1) {
+      this.hasFry = 2;
+    }
+
+    if(this.y>height-100){
+      this.hasFry = 4;
+
+    }
 
 	}
 
-  die(){
+  dropFry(){
+    if (this.hasFry == 3){
+
+
+
+    }
 
   }
 
