@@ -36,7 +36,7 @@ function preload() {
 function setup() {
   createCanvas(windowWidth, windowHeight);
   //make one avatar called me
-  me = new Avatar(600, 200, random(15,20),1);
+  me = new Avatar(600, 200, random(10,15),1);
   hands.push(me);
 }
 
@@ -61,7 +61,7 @@ print(xtimer)
     hands[i].drawMe();
     hands[i].moveMe();
     if(hands[i].hasFry==4){
-      let hand = new Avatar(600, 200, random(15,25),1);
+      let hand = new Avatar(600, 200, random(10,15),1);
        hands.push(hand);
        hands[i].hasFry=hands[i].hasFry+1;
       }
