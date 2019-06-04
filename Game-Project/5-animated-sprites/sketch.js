@@ -61,7 +61,7 @@ print(xtimer)
     hands[i].drawMe();
     hands[i].moveMe();
     if(hands[i].hasFry==4){
-      let hand = new Avatar(600, 200, random(10,25),1);
+      let hand = new Avatar(600, 200, random(10,35),1);
        hands.push(hand);
        hands[i].hasFry=hands[i].hasFry+1;
       }
